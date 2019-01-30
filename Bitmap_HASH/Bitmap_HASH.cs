@@ -30,8 +30,8 @@ namespace Bitmap_HASH
             }
             Bitmap mBitmap = ResizeBitmap(bitmap, mWidth, mHeight);
             byte[] array = BitmapToByteArray(mBitmap);
-            byte[] bwarray = bytesRGBtoBlackWhite(array);
-            byte[] twoarray = bytesto0or1(bwarray);
+            byte[] bwarray = BytesRGBtoBlackWhite(array);
+            byte[] twoarray = AveragingSimplification(bwarray);
             for (int i = 0; i < twoarray.Length; i++)
                 Console.Write(" " + twoarray[i]);
             Console.WriteLine();
@@ -62,7 +62,7 @@ namespace Bitmap_HASH
 
         }
 
-        private static byte[] bytesto0or1(byte[] bytes)
+        private static byte[] AveragingSimplification(byte[] bytes)
         {
             int average = 0;
             int len = bytes.Length;
@@ -82,7 +82,7 @@ namespace Bitmap_HASH
             return result;
         }
 
-        private static byte[] bytesRGBtoBlackWhite(byte[] rgb)
+        private static byte[] BytesRGBtoBlackWhite(byte[] rgb)
         {
             int len = rgb.Length;
             byte[] result = new byte[len / 3];

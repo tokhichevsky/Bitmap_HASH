@@ -48,14 +48,13 @@ namespace Bitmap_HASH
 
         public static int HammingDistance(ulong a, ulong b)
         {
-            int len = Math.Min(a.ToString().Length, b.ToString().Length);
-            int result = 0;
             var astr = a.ToString();
             var bstr = b.ToString();
-            //Console.WriteLine(a + " " + b);
+            int len = Math.Min(astr.Length, bstr.Length);
+            int result = 0;
+            
             for (int i = 0; i < len; i++)
             {
-                //Console.WriteLine(astr[i] +" "+ bstr[i]);
                 if (astr[i] != bstr[i])
                     result++;
             }
@@ -89,7 +88,7 @@ namespace Bitmap_HASH
             byte[] result = new byte[len / 3];
             for (int i = 0; i < len; i += 3)
             {
-                result[i / 3] = (byte)((rgb[i] + rgb[i + 1] + rgb[i + 2]) / 2);
+                result[i / 3] = (byte)((rgb[i] + rgb[i + 1] + rgb[i + 2]) / 3);
             }
             return result;
         }

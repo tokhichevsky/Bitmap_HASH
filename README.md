@@ -30,12 +30,8 @@ Function: GetHASH (public)
 * "normal": New size is 8x4
 * "high": New size is 8x8
 
-#### bitmode:
-* 32: using BitConverter.ToUInt32
-* 64: using BitConverter.ToUInt64
 
-
-`Received Bitmap` → **ResizeBitmap** → **BitmapToByteArray** → **BytesRGBtoBlackWhite** → **AveragingSimplification** → **BitConverter** → `HASH`
+`Received Bitmap` → **ResizeBitmap** → **BitmapToByteArray** → **BytesRGBtoBlackWhite** → **AveragingSimplification** → **Convert** → `HASH`
 
 Function: HammingDistance (public)
 ---------------

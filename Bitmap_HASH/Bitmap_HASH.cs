@@ -7,7 +7,7 @@ namespace Bitmap_HASH
 {
     public class Bitmap_HASH
     {
-        public static ulong GetHASH(Bitmap bitmap, string mode = "high", int bitmode = 64)
+        public static string GetHASH(Bitmap bitmap, string mode = "high")
         {
             int mHeight;
             int mWidth;
@@ -29,33 +29,22 @@ namespace Bitmap_HASH
                     throw new Exception("Invalid mode! Please choose the mode between 'high', 'normal' or 'low'!");
             }
             Bitmap mBitmap = ResizeBitmap(bitmap, mWidth, mHeight);
-            byte[] array = BitmapToByteArray(mBitmap);
-            byte[] bwarray = BytesRGBtoBlackWhite(array);
-            byte[] twoarray = AveragingSimplification(bwarray);
+            byte[] twoarray = AveragingSimplification(BytesRGBtoBlackWhite(BitmapToByteArray(mBitmap)));
+            mBitmap.Dispose();
+            string test = "";
             for (int i = 0; i < twoarray.Length; i++)
-                Console.Write(" " + twoarray[i]);
-            Console.WriteLine();
-            switch (bitmode)
-            {
-                case 32:
-                    return BitConverter.ToUInt32(twoarray, 0);
-                case 64:
-                    return BitConverter.ToUInt64(twoarray, 0);
-                default:
-                    throw new Exception("Invalid bitmode! Please choose the mode between '64', '32'!");
-            }
+                test += twoarray[i].ToString();
+            return Convert.ToString(Convert.ToInt64(test, 2), 16);
+
         }
 
-        public static int HammingDistance(ulong a, ulong b)
+        public static int HammingDistance(string a, string b)
         {
-            var astr = a.ToString();
-            var bstr = b.ToString();
-            int len = Math.Min(astr.Length, bstr.Length);
-            int result = 0;
-            
+            int len = Math.Min(a.Length, b.Length);
+            int result = Math.Max(a.Length, b.Length) - len;
             for (int i = 0; i < len; i++)
             {
-                if (astr[i] != bstr[i])
+                if (a[i] != b[i])
                     result++;
             }
             return result;
